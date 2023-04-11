@@ -10,6 +10,7 @@ use Hslavich\OneloginSamlBundle\Security\Http\Authenticator\Passport\Badge\SamlA
 use Hslavich\OneloginSamlBundle\Security\Http\Authenticator\Token\SamlToken;
 use Hslavich\OneloginSamlBundle\Security\User\SamlUserFactoryInterface;
 use Hslavich\OneloginSamlBundle\Security\User\SamlUserInterface;
+use OneLogin\Saml2\Auth;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -64,6 +65,11 @@ class SamlAuthenticator implements InteractiveAuthenticatorInterface, Authentica
         $this->userFactory = $userFactory;
         $this->eventDispatcher = $eventDispatcher;
         $this->logger = $logger;
+    }
+
+    public function setOneLoginAuth(Auth $oneLoginAuth)
+    {
+        $this->oneLoginAuth = $oneLoginAuth;
     }
 
     public function supports(Request $request): ?bool
